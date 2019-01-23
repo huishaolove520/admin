@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<description>== Shiro Components ==</description>
+    
+
+	<!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">
+        <property name="realm" ref="sampleRealm"/>
+
+    </bean>
+	<!-- 静态注入，相当于调用SecurityUtils.setSecurityManager(securityManager) -->
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	    <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
+	    <property name="arguments" ref="securityManager"/>
+	</bean>
+
+	
+	
+	
+	<!-- 授权 认证 -->
+	<bean id="sampleRealm" class="com.sel.core.shiro.ShiroRealm" ></bean>
+
+
+	
+	
+
+	
+	<!-- ============================================================================ -->
+
+</beans>
+
